@@ -29,7 +29,6 @@ class ToDoApp:
             pass  # ไม่ทำอะไรถ้าไม่มี icon
 
         # ✅ CUSTOM TITLE BAR
-        self.title_bar = tk.Frame(root, bg="#2c3e50", relief='raised', bd=0, height=28)
         self.title_bar.pack(fill='x')
         self.title_bar.bind("<Button-1>", self.start_move)
         self.title_bar.bind("<B1-Motion>", self.do_move)
