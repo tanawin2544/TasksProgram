@@ -126,7 +126,7 @@ class ToDoApp:
             print(f"Update check failed: {e}")
 
     def download_update(self):
-    try:
+        try:
         filename = "task_latest.exe"
 
         # 🔁 ลบไฟล์เดิมก่อน ถ้ามี
