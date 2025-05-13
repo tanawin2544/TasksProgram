@@ -18,10 +18,7 @@ class ToDoApp:
         self.root = root
         self.root.geometry("320x400")
         self.root.attributes('-topmost', True)
-        self.root.overrideredirect(False)
-        self.root.attributes('-topmost', True)
-        self.root.iconbitmap("icon.ico")  # ไอคอนที่จะแสดงบน Taskbar
-        self.root.title("To-Do Widget")   # ต้องมี title ด้วย ถึงจะโชว์ใน Taskbar
+        self.root.overrideredirect(true)
 
 
         # ✅ ICON
