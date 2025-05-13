@@ -8,22 +8,38 @@ from datetime import datetime
 import requests
 
 CURRENT_VERSION = "1.0.0"
-VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
-UPDATE_URL = "https://drive.google.com/uc?export=download&id=1HJwuQwIVA8godaeE2p1t1d6nbO3YU96s"
+VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/main/version.txt"
+UPDATE_URL = "https://your-download-link.com/task_latest.exe"  # เปลี่ยนตามจริง
 
 TASKS_FILE = 'tasks.json'
 
 class ToDoApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("To-Do Widget")
         self.root.geometry("320x400")
         self.root.attributes('-topmost', True)
         self.root.overrideredirect(True)
 
-        self.root.bind('<ButtonPress-1>', self.start_move)
-        self.root.bind('<B1-Motion>', self.do_move)
+        # ✅ ICON
+        try:
+            self.root.iconbitmap("icon.ico")  # ต้องมีไฟล์ icon.ico ในโฟลเดอร์เดียวกัน
+        except:
+            pass  # ไม่ทำอะไรถ้าไม่มี icon
 
+        # ✅ CUSTOM TITLE BAR
+        self.title_bar = tk.Frame(root, bg="#2c3e50", relief='raised', bd=0, height=28)
+        self.title_bar.pack(fill='x')
+        self.title_bar.bind("<Button-1>", self.start_move)
+        self.title_bar.bind("<B1-Motion>", self.do_move)
+
+        self.title_label = tk.Label(self.title_bar, text="📝 To-Do Widget", bg="#2c3e50", fg="white", font=("Kanit", 10))
+        self.title_label.pack(side='left', padx=10)
+
+        self.btn_close = tk.Button(self.title_bar, text='✖', command=self.save_and_exit,
+                                   bg="#e74c3c", fg='white', bd=0, font=("Arial", 10, "bold"))
+        self.btn_close.pack(side='right', padx=5)
+
+        # ✅ TASK ZONE
         self.task_frame = tk.Frame(root, bg="white")
         self.task_frame.pack(fill='both', expand=True)
 
@@ -40,6 +56,7 @@ class ToDoApp:
         threading.Thread(target=self.check_reminders, daemon=True).start()
         threading.Thread(target=self.check_for_update, daemon=True).start()
 
+    # ===== MOVE WINDOW =====
     def start_move(self, event):
         self._x = event.x
         self._y = event.y
@@ -49,6 +66,7 @@ class ToDoApp:
         y = self.root.winfo_pointery() - self._y
         self.root.geometry(f'+{x}+{y}')
 
+    # ===== LOAD / SAVE TASKS =====
     def load_tasks(self):
         if os.path.exists(TASKS_FILE):
             with open(TASKS_FILE, 'r') as f:
@@ -68,6 +86,7 @@ class ToDoApp:
             json.dump(self.task_list, f)
         self.root.destroy()
 
+    # ===== ADD TASK =====
     def add_task(self):
         text = simpledialog.askstring("New Task", "Enter your task:")
         if text:
@@ -90,6 +109,7 @@ class ToDoApp:
 
         self.task_vars.append((chk, var, time_label))
 
+    # ===== REMINDER CHECK =====
     def check_reminders(self):
         while True:
             now = datetime.now().strftime("%H:%M")
@@ -101,6 +121,7 @@ class ToDoApp:
                         time.sleep(60)
             time.sleep(10)
 
+    # ===== UPDATE CHECK =====
     def check_for_update(self):
         try:
             r = requests.get(VERSION_URL, timeout=5)
@@ -122,8 +143,8 @@ class ToDoApp:
         except Exception as e:
             messagebox.showerror("❌ Error", f"Download failed:\n{e}")
 
+# ===== RUN =====
 if __name__ == '__main__':
     root = tk.Tk()
     app = ToDoApp(root)
     root.mainloop()
-
