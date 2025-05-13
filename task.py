@@ -28,17 +28,7 @@ class ToDoApp:
         except:
             pass  # ไม่ทำอะไรถ้าไม่มี icon
 
-        # ✅ CUSTOM TITLE BAR
-        self.title_bar.pack(fill='x')
-        self.title_bar.bind("<Button-1>", self.start_move)
-        self.title_bar.bind("<B1-Motion>", self.do_move)
-
-        self.title_label = tk.Label(self.title_bar, text="📝 To-Do Widget", bg="#2c3e50", fg="white", font=("Kanit", 10))
-        self.title_label.pack(side='left', padx=10)
-
-        self.btn_close = tk.Button(self.title_bar, text='✖', command=self.save_and_exit,
-                                   bg="#e74c3c", fg='white', bd=0, font=("Arial", 10, "bold"))
-        self.btn_close.pack(side='right', padx=5)
+        
 
         # ✅ TASK ZONE
         self.task_frame = tk.Frame(root, bg="white")
