@@ -126,27 +126,28 @@ class ToDoApp:
             time.sleep(10)
 
     # ===== UPDATE CHECK =====
+        # ===== UPDATE CHECK =====
     def check_for_update(self):
-    try:
-        r = requests.get(VERSION_URL, timeout=5)
-        latest_version = r.text.strip()
-        if latest_version != CURRENT_VERSION:
-            answer = messagebox.askyesno("🔄 Update Available", f"New version {latest_version} available. Download now?")
-            if answer:
-                self.download_update()
-    except Exception as e:
-        print(f"Update check failed: {e}")
+        try:
+            r = requests.get(VERSION_URL, timeout=5)
+            latest_version = r.text.strip()
+            if latest_version != CURRENT_VERSION:
+                answer = messagebox.askyesno("🔄 Update Available", f"New version {latest_version} available. Download now?")
+                if answer:
+                    self.download_update()
+        except Exception as e:
+            print(f"Update check failed: {e}")
 
+    def download_update(self):
+        try:
+            r = requests.get(UPDATE_URL, stream=True)
+            with open("task_latest.exe", "wb") as f:
+                for chunk in r.iter_content(1024):
+                    f.write(chunk)
+            messagebox.showinfo("✅ Downloaded", "task_latest.exe is downloaded.\nPlease run the new version manually.")
+        except Exception as e:
+            messagebox.showerror("❌ Error", f"Download failed:\n{e}")
 
-def download_update(self):
-    try:
-        r = requests.get(UPDATE_URL, stream=True)
-        with open("task_latest.exe", "wb") as f:
-            for chunk in r.iter_content(1024):
-                f.write(chunk)
-        messagebox.showinfo("✅ Downloaded", "task_latest.exe is downloaded.\nPlease run the new version manually.")
-    except Exception as e:
-        messagebox.showerror("❌ Error", f"Download failed:\n{e}")
 
 
 # ===== RUN =====
