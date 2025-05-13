@@ -126,15 +126,22 @@ class ToDoApp:
             print(f"Update check failed: {e}")
 
     def download_update(self):
-        try:
-            r = requests.get(UPDATE_URL, stream=True)
-            with open("task_latest.exe", "wb") as f:
-                for chunk in r.iter_content(1024):
-                    f.write(chunk)
-            messagebox.showinfo("✅ Downloaded", "task_latest.exe is downloaded.\nPlease run the new version manually.")
-        except Exception as e:
-            messagebox.showerror("❌ Error", f"Download failed:\n{e}")
+    try:
+        filename = "task_latest.exe"
 
+        # 🔁 ลบไฟล์เดิมก่อน ถ้ามี
+        if os.path.exists(filename):
+            os.remove(filename)
+
+        r = requests.get(UPDATE_URL, stream=True)
+        with open(filename, "wb") as f:
+            for chunk in r.iter_content(1024):
+                f.write(chunk)
+
+        messagebox.showinfo("✅ Downloaded", f"{filename} is downloaded.\nPlease run the new version manually.")
+
+    except Exception as e:
+        messagebox.showerror("❌ Error", f"Download failed:\n{e}")
 
 
 # ===== RUN =====
