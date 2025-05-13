@@ -18,7 +18,7 @@ class ToDoApp:
         self.root = root
         self.root.geometry("320x400")
         self.root.attributes('-topmost', True)
-        self.root.title("To-Do Widget")
+        self.root.title("To-Do Widget 2")
 
         try:
             self.root.iconbitmap("icon.ico")
