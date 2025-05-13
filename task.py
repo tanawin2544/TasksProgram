@@ -137,6 +137,7 @@ class ToDoApp:
     except Exception as e:
         print(f"Update check failed: {e}")
 
+
 def download_update(self):
     try:
         r = requests.get(UPDATE_URL, stream=True)
