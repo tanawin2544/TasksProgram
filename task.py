@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 import requests
 
-CURRENT_VERSION = "1.0.1"
+CURRENT_VERSION = "1.0.2"
 VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
 UPDATE_URL = "https://drive.google.com/uc?export=download&id=1Av8bKGocJkSE5RQItgbFrPF3JiaubJqw"
 
