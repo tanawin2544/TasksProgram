@@ -18,8 +18,9 @@ class ToDoApp:
         self.root = root
         self.root.geometry("320x400")
         self.root.attributes('-topmost', True)
-        self.root.overrideredirect(true)
-
+        self.root.overrideredirect(True)  # ✅ ซ่อน Title Bar ดั้งเดิม
+        self.root.iconbitmap("icon.ico")
+        self.root.title("To-Do Widget")  # ให้มี icon บน taskbar
 
         # ✅ ICON
         try:
