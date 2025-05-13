@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 import requests
 
-CURRENT_VERSION = "1.0.2"
+CURRENT_VERSION = "1.0.1"
 VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
 UPDATE_URL = "https://drive.google.com/uc?export=download&id=1Av8bKGocJkSE5RQItgbFrPF3JiaubJqw"
 
@@ -20,13 +20,11 @@ class ToDoApp:
         self.root.attributes('-topmost', True)
         self.root.title("To-Do Widget")
 
-        # ICON
         try:
             self.root.iconbitmap("icon.ico")
         except:
             pass
 
-        # TASK ZONE
         self.task_frame = tk.Frame(root, bg="white")
         self.task_frame.pack(fill='both', expand=True)
 
@@ -43,7 +41,6 @@ class ToDoApp:
         threading.Thread(target=self.check_reminders, daemon=True).start()
         threading.Thread(target=self.check_for_update, daemon=True).start()
 
-    # ===== LOAD / SAVE TASKS =====
     def load_tasks(self):
         if os.path.exists(TASKS_FILE):
             with open(TASKS_FILE, 'r') as f:
@@ -63,7 +60,6 @@ class ToDoApp:
             json.dump(self.task_list, f)
         self.root.destroy()
 
-    # ===== ADD TASK =====
     def add_task(self):
         text = simpledialog.askstring("New Task", "Enter your task:")
         if text:
@@ -86,7 +82,6 @@ class ToDoApp:
 
         self.task_vars.append((chk, var, time_label))
 
-    # ===== REMINDER CHECK =====
     def check_reminders(self):
         while True:
             now = datetime.now().strftime("%H:%M")
@@ -98,7 +93,6 @@ class ToDoApp:
                         time.sleep(60)
             time.sleep(10)
 
-    # ===== UPDATE CHECK =====
     def check_for_update(self):
         try:
             r = requests.get(VERSION_URL, timeout=5)
@@ -112,22 +106,17 @@ class ToDoApp:
 
     def download_update(self):
         try:
-            filename = "task_latest.exe"
-
-            # 🔁 ลบไฟล์เดิมก่อน ถ้ามี
-            if os.path.exists(filename):
-                os.remove(filename)
+            # ตั้งชื่อแบบ auto ไม่ให้ชน
+            filename = f"task_update_v{int(time.time())}.exe"
 
             r = requests.get(UPDATE_URL, stream=True)
             with open(filename, "wb") as f:
                 for chunk in r.iter_content(1024):
                     f.write(chunk)
 
-            messagebox.showinfo("✅ Downloaded", f"{filename} is downloaded.\nPlease run the new version manually.")
-
+            messagebox.showinfo("✅ Downloaded", f"{filename} has been downloaded.\nPlease close this app and run the new version.")
         except Exception as e:
             messagebox.showerror("❌ Error", f"Download failed:\n{e}")
-
 
 # ===== RUN =====
 if __name__ == '__main__':
