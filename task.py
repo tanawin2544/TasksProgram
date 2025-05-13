@@ -127,7 +127,7 @@ class ToDoApp:
 
     def download_update(self):
         try:
-        filename = "task_latest.exe"
+            filename = "task_latest.exe"
 
         # 🔁 ลบไฟล์เดิมก่อน ถ้ามี
         if os.path.exists(filename):
