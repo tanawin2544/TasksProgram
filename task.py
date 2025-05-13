@@ -18,19 +18,15 @@ class ToDoApp:
         self.root = root
         self.root.geometry("320x400")
         self.root.attributes('-topmost', True)
-        #self.root.overrideredirect(True)  # ✅ ซ่อน Title Bar ดั้งเดิม
-        #self.root.iconbitmap("icon.ico")
-        self.root.title("To-Do Widget")  # ให้มี icon บน taskbar
+        self.root.title("To-Do Widget")
 
-        # ✅ ICON
+        # ICON
         try:
-            self.root.iconbitmap("icon.ico")  # ต้องมีไฟล์ icon.ico ในโฟลเดอร์เดียวกัน
+            self.root.iconbitmap("icon.ico")
         except:
-            pass  # ไม่ทำอะไรถ้าไม่มี icon
+            pass
 
-        
-
-        # ✅ TASK ZONE
+        # TASK ZONE
         self.task_frame = tk.Frame(root, bg="white")
         self.task_frame.pack(fill='both', expand=True)
 
@@ -46,16 +42,6 @@ class ToDoApp:
 
         threading.Thread(target=self.check_reminders, daemon=True).start()
         threading.Thread(target=self.check_for_update, daemon=True).start()
-
-    # ===== MOVE WINDOW =====
-    def start_move(self, event):
-        self._x = event.x
-        self._y = event.y
-
-    def do_move(self, event):
-        x = self.root.winfo_pointerx() - self._x
-        y = self.root.winfo_pointery() - self._y
-        self.root.geometry(f'+{x}+{y}')
 
     # ===== LOAD / SAVE TASKS =====
     def load_tasks(self):
@@ -113,7 +99,6 @@ class ToDoApp:
             time.sleep(10)
 
     # ===== UPDATE CHECK =====
-        # ===== UPDATE CHECK =====
     def check_for_update(self):
         try:
             r = requests.get(VERSION_URL, timeout=5)
@@ -129,19 +114,19 @@ class ToDoApp:
         try:
             filename = "task_latest.exe"
 
-        # 🔁 ลบไฟล์เดิมก่อน ถ้ามี
-        if os.path.exists(filename):
-            os.remove(filename)
+            # 🔁 ลบไฟล์เดิมก่อน ถ้ามี
+            if os.path.exists(filename):
+                os.remove(filename)
 
-        r = requests.get(UPDATE_URL, stream=True)
-        with open(filename, "wb") as f:
-            for chunk in r.iter_content(1024):
-                f.write(chunk)
+            r = requests.get(UPDATE_URL, stream=True)
+            with open(filename, "wb") as f:
+                for chunk in r.iter_content(1024):
+                    f.write(chunk)
 
-        messagebox.showinfo("✅ Downloaded", f"{filename} is downloaded.\nPlease run the new version manually.")
+            messagebox.showinfo("✅ Downloaded", f"{filename} is downloaded.\nPlease run the new version manually.")
 
-    except Exception as e:
-        messagebox.showerror("❌ Error", f"Download failed:\n{e}")
+        except Exception as e:
+            messagebox.showerror("❌ Error", f"Download failed:\n{e}")
 
 
 # ===== RUN =====
