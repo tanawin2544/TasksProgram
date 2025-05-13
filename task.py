@@ -9,7 +9,7 @@ import requests
 
 CURRENT_VERSION = "1.0.1"
 VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/main/version.txt"
-UPDATE_URL = "https://drive.google.com/uc?export=download&id=1HJwuQwIVA8godaeE2p1t1d6nbO3YU96s"
+UPDATE_URL = "https://drive.google.com/uc?export=download&id=1Av8bKGocJkSE5RQItgbFrPF3JiaubJqw"
 
 TASKS_FILE = 'tasks.json'
 
