@@ -8,7 +8,7 @@ from datetime import datetime
 import requests
 
 CURRENT_VERSION = "1.0.1"
-VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/main/version.txt"
+VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
 UPDATE_URL = "https://drive.google.com/uc?export=download&id=1Av8bKGocJkSE5RQItgbFrPF3JiaubJqw"
 
 TASKS_FILE = 'tasks.json'
