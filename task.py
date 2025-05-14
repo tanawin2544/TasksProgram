@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 import requests
 
-CURRENT_VERSION = "1.0.2"
+CURRENT_VERSION = "1.0.3"
 VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
 UPDATE_URL = "https://drive.google.com/uc?export=download&id=1Av8bKGocJkSE5RQItgbFrPF3JiaubJqw"
 
@@ -18,7 +18,7 @@ class ToDoApp:
         self.root = root
         self.root.geometry("320x400")
         self.root.attributes('-topmost', True)
-        self.root.title("To-Do Widget 2")
+        self.root.title("To-Do Widget")
 
         try:
             self.root.iconbitmap("icon.ico")
