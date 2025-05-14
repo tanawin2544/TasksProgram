@@ -9,7 +9,7 @@ import requests
 import subprocess
 import sys
 
-CURRENT_VERSION = "1.0.4"
+CURRENT_VERSION = "1.0.5"
 VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
 UPDATE_URL = "https://drive.google.com/uc?export=download&id=1zNVjlDd5-CbJ1yTr-9SergqV9GBedvDV"
 
@@ -20,7 +20,7 @@ class ToDoApp:
         self.root = root
         self.root.geometry("320x400")
         self.root.attributes('-topmost', True)
-        self.root.title("To-Do Widget")
+        self.root.title("To-Do Widget2")
 
         try:
             self.root.iconbitmap("icon.ico")
