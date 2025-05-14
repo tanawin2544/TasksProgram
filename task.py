@@ -11,7 +11,7 @@ import sys
 
 CURRENT_VERSION = "1.0.4"
 VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
-UPDATE_URL = "https://drive.google.com/uc?export=download&id=1Av8bKGocJkSE5RQItgbFrPF3JiaubJqw"
+UPDATE_URL = "https://drive.google.com/uc?export=download&id=1zNVjlDd5-CbJ1yTr-9SergqV9GBedvDV"
 
 TASKS_FILE = 'tasks.json'
 
