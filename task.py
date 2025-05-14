@@ -6,6 +6,8 @@ import threading
 import time
 from datetime import datetime
 import requests
+import subprocess
+import sys
 
 CURRENT_VERSION = "1.0.3"
 VERSION_URL = "https://raw.githubusercontent.com/tanawin2544/TasksProgram/refs/heads/main/version.txt"
@@ -106,15 +108,33 @@ class ToDoApp:
 
     def download_update(self):
         try:
-            # ตั้งชื่อแบบ auto ไม่ให้ชน
-            filename = f"task_update_v{int(time.time())}.exe"
+            downloaded_file = f"task_update_v{int(time.time())}.exe"
+            final_filename = "task.exe"
 
             r = requests.get(UPDATE_URL, stream=True)
-            with open(filename, "wb") as f:
+            with open(downloaded_file, "wb") as f:
                 for chunk in r.iter_content(1024):
                     f.write(chunk)
 
-            messagebox.showinfo("✅ Downloaded", f"{filename} has been downloaded.\nPlease close this app and run the new version.")
+            messagebox.showinfo("✅ Downloaded", "Update downloaded. Replacing old version...")
+
+            # ✅ สร้าง .bat สำหรับลบตัวเก่า + เปลี่ยนชื่อ + เปิดใหม่
+            script_name = "update_runner.bat"
+            with open(script_name, "w") as bat:
+                bat.write(f"""@echo off
+timeout /t 1 >nul
+del "{os.path.basename(sys.argv[0])}" >nul
+rename "{downloaded_file}" "{final_filename}"
+start "" "{final_filename}"
+del "%~f0"
+""")
+
+            # ✅ รัน .bat
+            subprocess.Popen([script_name], shell=True)
+
+            # ✅ ปิดโปรแกรมเก่า
+            self.root.destroy()
+
         except Exception as e:
             messagebox.showerror("❌ Error", f"Download failed:\n{e}")
 
